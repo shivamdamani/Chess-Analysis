@@ -1,8 +1,8 @@
 # Chess-Analysis
-In this project, I try to analyse chess games from lichess.org - there is free data available on the website, which I clean, convert to CSV file and perform analysis and build visualisations. The project is divided into two parts:
+In this project, I try to analyse chess games from lichess.org - there is free data available on the website, which I clean, convert to a usable CSV file and perform analysis on and build visualizations. The project is divided into two parts:
 
-1. Preprocessing the raw data and preparation of the CSV files.
-2. Analysing the data and constructing visualisations based on the collected data.
+1. Preprocessing the raw data and preparation of the CSV file.
+2. Analysing the data and constructing vizualisations based on the collected data.
 
 The file I used for this analysis was of all the games played January 2013 since it was the smallest available file. However the code can be applied to any month's file from the lichess database. The file had the names of the type of games, ELO ratings of both players, rating difference, the opening style, termination reason and the PGN of the game (few had analysis attached). PGN is a shorthand representation of the entire game.
 
@@ -10,19 +10,19 @@ In this readme, I mainly illustrate the results of step 2, the code can be found
 
 Exploratory Analysis
 ----
-1. **The different types of games played over the period:** Chess has 3 formats based on length: bullet games (1 or 2 minutes long), blitz games (3 to 14 minutes) and standard (more than 15 minutes) 
+1. **The different types of games played over the period:** Chess has 3 formats based on length: bullet games (1 or 2 minutes long), blitz games (3 to 14 minutes) and standard (more than 15 minutes).
 
 ![mode distribution](https://user-images.githubusercontent.com/39181870/118170798-29640d80-b448-11eb-9604-f71923963b9f.png)
 
-Blitz games are slightly more popular, due to the short attention span of internet chess players! This analysis shows a greater popularity in more recent game files.
+Blitz games are slightly more popular, due to the short attention span of internet chess players. This analysis shows a greater popularity in faster games in more recent game files.
 
 2. **The outcomes of all the games in this period:** Comparing the  sides which came out victorious.
 
 ![result distribution](https://user-images.githubusercontent.com/39181870/118170803-29fca400-b448-11eb-91b7-263c78ac4b96.png)
 
-Since white plays first, white always has a small advantage over black. This is clear from the above image. The few draws implies that online chess players play out drawn positions until one of the sides resigns.
+Since white plays first, white always has a small advantage over black. This is clear from the above image. The few draws implies that online chess players play out drawn positions until one of the sides resigns or blunders.
 
-3. **Game termination types:** The game ends in 4 ways - Normally(Win/Loss or Draw), time forfeit, cheating or abandonment.
+3. **Game termination types:** The game ends in 4 ways - normally (Win/Loss or Draw), time forfeit, cheating or abandonment.
 
 ![termination distribution](https://user-images.githubusercontent.com/39181870/118170805-2a953a80-b448-11eb-9b5b-6d51f9755b34.png)
 
@@ -48,13 +48,9 @@ The distribution is platykurtic, since the excess kurotsis is negative; this mea
 
 ![game length distribution](https://user-images.githubusercontent.com/39181870/118175082-42bb8880-b44d-11eb-904d-0c4cc443a102.png)
 
-The mean and median of chess game lengths seem to be the mid 30s range, somewhat lower than our expected average of ~40 moves per game. This is maybe because this dataset includes speed chess (games with time control less than 5 minutes), so players may flag more often than a game that is played over the board. Something interesting to note is the number of games that are 2 moves long. This is probably because some people will leave their games seeing a high rating difference, thus resulting in a time forfeit.
+The mean and median of chess game lengths seem to be the mid 30s range, somewhat lower than the expected average of ~40 moves per game. This is maybe because this dataset includes speed chess (games with time control less than 5 minutes), so players may flag more often than a game that is played over the board. Something interesting to note is the number of games that are 2 moves long. This is probably because some people will leave their games seeing a high rating difference, thus resulting in a time forfeit.
 
 ![forfeit stats](https://user-images.githubusercontent.com/39181870/118177335-308f1980-b450-11eb-8c8d-83f28213f2c7.png)
-
-![game length distribution with termination](https://user-images.githubusercontent.com/39181870/118177358-371d9100-b450-11eb-8db7-d1a02ac72eb1.png)
-
-![game length distribution with termination moves](https://user-images.githubusercontent.com/39181870/118177355-35ec6400-b450-11eb-8914-ac8efbdc2c9d.png)
 
 We can see that the previous hypothesis that most of the early forfeits are due to time forfeits. Another interesting point is that the average number of moves for a game that ends in time forfeit is larger than a normal game. This might be due to people not resigning in bullet games to flag their opponents (eventually someone loses on time) or selection bias, where people who resign will most likely resign somewhere in the middlegame (move 25 to 35) as opposed to later in the game when all hope is lost.
 
@@ -107,7 +103,7 @@ The obvious next step after finding how many times a chess piece moves, is to an
 
 ![castling movement](https://user-images.githubusercontent.com/39181870/118236904-49c9b180-b4b4-11eb-8200-78795631939f.png)
 
-The interesting things to notice are that beginner players move their queen way too often in the opening and don't castle as much.
+The interesting things to notice are that beginner players move their queen way too often in the opening and don't castle as much. Another interesting thing to see is more rook movements in the endgame in comparision to beginners. This could be because master players do not trade rooks as often as beginners.
 
 3. What is the probability a piece lands on a certain square?
 
@@ -123,7 +119,7 @@ The final question to answer, is to analyse the probabilities of pieces landing 
 
 For reference, I've included an example of using the castling method here. Including castling heavily skews the data to kingside castling squares, so I don't include them in my later analysis. It's worth noting that many games will just end with the king ending on g1/g8 (after kingside castling) and the rook not moving from its square on f1/f8.
 
-The main lesson from these images is that pieces are always trying control the center. This reinforces the age old advice of trying to control the central squares. For the rest of this combined data (where the movement of white vs black is not separated), the data is a lot to digest and very unclear, and so in the future sections, I'll be splitting the movement up for into two graphs, one for white and one for black, and performing analysis on the much simpler data.
+The main lesson from these images is that pieces are always trying control the center. This reinforces the age old advice of trying to control the central squares. For the rest of this combined data (where the movement of white vs black is not separated), the data is a lot to digest and very unclear, and so in the future sections, I'll be splitting the movement up for into two graphs, one for white and one for black, and performing analysis on the much simpler data. Splitting the colours gives a better insight rather than averaging the data for black and white.
 
 ![white piece probability](https://user-images.githubusercontent.com/39181870/118241946-60730700-b4ba-11eb-9306-539ba6447fdb.png)
 
@@ -133,12 +129,12 @@ The main lesson from these images is that pieces are always trying control the c
 
 Splitting the colors up makes it alot easier to see the differences between the play of different colors, due to the difference in positions in black and white.
 
-- Pawns: Most players with the white pieces will move e4 at some point, whereas black plays its counterpart (e5) far less. An plausible explanation for such a trend is that in many openings like the Sicilian and Queen's Gambit Declined (QGD), the black e pawn will perch itself on e6. White, on the other hand, will typically expand their central control with pawn to e4, even in openings like the QGD (e.g., Grunfeld Defense). White also pushes their pawn to the 5th rank far more than black does, implying that white has an immediate space advantage.
-- Bishop: Bishop to c4 is extremely common for white, whereas its counterpart (Bishop to c5) by black is quite uncommon, with Bishop to e7 being the preferred choice for black. This may due to differences in development; white wants to put their light-squared bishop in an attacking position, whereas black would like to first play solid and equalize before launching a counter-attack. Black also tends to fianchetto—putting their bishop on b7/g7 to control the long diagonal—more often than white, supporting the counter-attacking nature of Black. Black also plays b6/g6 more often than white to fianchetto their bishop).
-- Knight: Black plays its knight to the 7th rank more often than white, which can be explained by the fact white will oftentimes decide to push its d/e pawn to the 5th rank, gaining space and attacking the knight on the 6th rank, forcing it to retreat. For both sides though, knight moves to the c3/f3/c6/f6 are by far the most common (>50%).
-- Rook: Surprisingly, rooks played on the queenside are more common than towards the center, with Rb8/Rc8 being played more often than Rd8/Re8 for black (and the counterpart squares for white are not far behind).
-- Queen: Very similar distribution for the white and black player except Qc7 is played a bit more often than Qc2 (Qc7 in the Sicilian is very common). Qd5 and Qa5 are also very common moves for black, perhaps suggesting some type of Scandanavian setup being heavily played in this data.
-- King: Pretty much the same. Most king moves are towards the center.
+- **Pawns:** Most players with the white pieces will move e4 at some point, whereas black plays its counterpart (e5) far less. This maybe due to the popularity of alternate openings such as the Sicilian and Queen's Gambit (Declined), the black e pawn will perch itself on e6. White also pushes the pawn to the 5th rank far more than black does, implying that white has an immediate space advantage due to the start.
+- **Bishop:** Bishop to c4 is extremely common for white, whereas its counterpart (Bishop to c5) by black is quite uncommon, with Bishop to e7 being the preferred choice for black. This may due to differences in development; white wants to put their light-squared bishop in an attacking position, whereas black would like to first play solid and equalize before launching a counter-attack. Black also tends to put their bishop on b7/g7 to control the long diagonal—more often than white, supporting the counter-attacking nature of Black. Black also plays b6/g6 more often than white to fianchetto their bishop).
+- **Knight:** Black plays its knight to the 7th rank more often than white, which can be explained by the fact white will oftentimes decide to push its d/e pawn to the 5th rank, gaining space and attacking the knight on the 6th rank, forcing it to retreat. For both sides though, knight moves to the c3/f3/c6/f6 are by far the most common (>50%).
+- **Rook:** Surprisingly, rooks played on the queenside are more common than towards the center, with Rb8/Rc8 being played more often than Rd8/Re8 for black, and the counterpart squares for white are also close.
+- **Queen:** Very similar distribution for the white and black player except Qc7 is played a bit more often than Qc2 (Qc7 in the Sicilian is very common). Qd5 and Qa5 are also very common moves for black, perhaps suggesting some type of Scandanavian setup being heavily played in this data.
+- **King:** Pretty much the same. Most king moves are towards the center.
 
 Lastly, it maybe useful to visualize which squares pieces move to for differently rated players.
 
@@ -146,3 +142,4 @@ Lastly, it maybe useful to visualize which squares pieces move to for differentl
 
 It seems that master players seem to play on the long diagonals a lot more than beginner players; f3 is a popular square for beginners to put their queen (probably after black plays Bg4, Bxf3) whereas e2 is a far more popular square for master players to put their queen. Beginner players seem to move Ke2 very often, implying that many don't castle. 
 
+I hope you learned something and will start/continue playing chess. I have recently revisited it, and I have obtained great pleasure to learn and improve. I hope intermediate/advanced players enjoyed these visualizations.
